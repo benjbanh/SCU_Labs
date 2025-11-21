@@ -1,0 +1,82 @@
+Step 2. Select three hosts on the internet from different regions: 
+    one in North America, one in Asia, and one in Europe. 
+    
+    Conduct a ping experiment with varying packet sizes and analyze the results.
+    ● Use the ping command to send packets of varying sizes (e.g., 32 bytes, 128 bytes, 512 bytes, 1024
+    bytes). Use ping -s <size> <host>
+    ● For each host, record the Packet Loss (the percentage of packets lost during the ping test) and the
+    Round-Trip Time (RTT) (minimum, maximum, and average) RTT values.
+    ● Compare the RTT values and packet loss for the three hosts and discuss how the geographical
+    distance between your location and the hosts affects these measurements.
+
+
+    NA host:    amazon.com
+        32:     
+            Packet loss: 0%
+            RTT min(ms): 64.454
+            RTT avg(ms): 64.849
+            RTT max(ms): 67.946
+        128:    
+            Packet loss: 0%
+            RTT min(ms): 64.470
+            RTT avg(ms): 64.947
+            RTT max(ms): 73.987
+        512:  
+            Packet loss: 0%
+            RTT min(ms): 66.749
+            RTT avg(ms): 66.963
+            RTT max(ms): 67.242
+        1024:   
+            Packet loss: 0%
+            RTT min(ms): 64.519
+            RTT avg(ms): 64.829
+            RTT max(ms): 67.041
+
+
+    Asia host:  www3.nhk.or.jp
+        32:     
+            Packet loss: 0%
+            RTT min(ms): 3.199
+            RTT avg(ms): 3.408
+            RTT max(ms): 3.716
+        128:  
+            Packet loss: 0%
+            RTT min(ms): 3.099
+            RTT avg(ms): 3.433
+            RTT max(ms): 4.504
+        512:   
+            Packet loss: 0%
+            RTT min(ms): 3.179
+            RTT avg(ms): 3.403
+            RTT max(ms): 3.797
+        1024:   
+            Packet loss: 0%
+            RTT min(ms): 3.115
+            RTT avg(ms): 3.881
+            RTT max(ms): 11.354
+
+    Europe host:    bbc.co.uk
+        32:     
+            Packet loss: 0%
+            RTT min(ms): 2.675
+            RTT avg(ms): 2.950
+            RTT max(ms): 3.330
+        128:    
+            Packet loss: 0%
+            RTT min(ms): 2.708
+            RTT avg(ms): 2.944
+            RTT max(ms): 3.109
+        512:    
+            Packet loss: 0%
+            RTT min(ms): 2.740
+            RTT avg(ms): 3.916
+            RTT max(ms): 31.538
+        1024:   
+            Packet loss: 0%
+            RTT min(ms): 2.697
+            RTT avg(ms): 3.058
+            RTT max(ms): 20.837
+
+
+While all 3 websites maintained a 0% packet loss, I noticed that european servers are, on average, the fastest followed by Asian servers and North American Servers respectively.
+This may be due to the load on the server despite the geographical difference of distance between my location and the hosts. 

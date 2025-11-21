@@ -1,0 +1,12 @@
+Worst Case Big O analysis:
+    SET *createDataSet(int max)                 |O(n)
+    void destroyDataSet(SET *sp)                |O(n)
+    int searchID(SET *sp, int id)               |O(1)
+    void insert(SET *sp, int id, int age)       |O(1)
+    void delete(SET *sp, int id)                |O(1)
+
+For app2, the maximum number of students is given and requires frequent search
+    operations with search based on ID. 
+I used a hashtable without hashing due to each ID being unique. 
+    Other data structures would not have such efficiency due to the hashtable's 
+    very quick insertion and search.

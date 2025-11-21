@@ -1,0 +1,21 @@
+omplete the file report.txt containing the results for the worst-case Big-O run time for
+each of the operations required by your applications, such as creation, destroy, search, insertion, deletion and
+maxAgeGap. In addition, provide a justification for the selected data structure for each application and possibly
+explain why alternate structures would not work.
+
+Worst Case Big O analysis:
+    SET *createDataSet(int max)                 |O(n)
+    void destroyDataSet(SET *sp)                |O(n)
+    int searchAge(SET *sp, int age)             |O(1)
+    void insert(SET *sp, int id, int age)       |O(1)
+    void delete(SET *sp, int id)                |O(1)
+    int maxAgeGap(SET *sp)                      |O(n)
+
+For app1, no frequent insertions or deletions but a lot of searching. 
+    This app also required the ability to calculate the maximum age gap 
+    among students.
+I chose a hashtable with linked list chaining for this application 
+    as a result of the hashtable having one of the fastest search capabilities
+    and chaining as to be able to return multiple students within a single search.
+    Other data structures lack this chaining function and the ones that do not
+    are still comparatively slower than the chained hashtable.

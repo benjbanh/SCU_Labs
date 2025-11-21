@@ -1,0 +1,124 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <assert.h>
+#include <ctype.h>
+#include "pqueue.h"
+#include "pack.h"
+
+typedef struct node NODE;
+
+/**
+ * O(1)
+ * returns a new node
+ *      int count: sum of the 2 children
+ *      NODE left:left child node
+ *      NODE right: right child node
+ */
+NODE *mknode(int count, NODE *left, NODE *right)
+{
+    NODE *new_node = (NODE *)malloc(sizeof(NODE));
+    new_node->count = count;
+    new_node->parent = NULL;
+    if (left != NULL)
+        left->parent = new_node;
+    if (right != NULL)
+        right->parent = new_node;
+    return new_node;
+}
+
+/**
+ * O(1)
+ * Private helper function that helps in comparing
+ *  t1<t2: -1
+ *  t1==t2: 0
+ *  t1>t2: 1
+ */
+static int cmp(NODE *t1, NODE *t2)
+{
+    assert(t1 != NULL);
+    assert(t2 != NULL);
+    return (t1->count < t2->count) ? -1 : (t1->count > t2->count);
+}
+/**
+ * O(n)
+ * Return the depth of a given node
+ */
+static int depth(NODE *np)
+{
+    assert(np != NULL);
+    if (np->parent == NULL)
+    {
+        return 0;
+    }
+    return depth(np->parent) + 1;
+}
+
+// driver function
+int main(int argc, char *argv[])
+{
+    if (argc != 3)
+    {
+        printf("Invalid File");
+        return 0;
+    }
+    int counts[257];
+    NODE *nodes[257];
+    int i;
+    for (i = 0; i < 257; i++)
+    {
+        counts[i] = 0;
+        nodes[i] = NULL;
+    }
+    FILE *fp = fopen(argv[1], "rb");
+    int c;
+    while ((c = getc(fp)) != EOF)
+    {
+        // update counts
+        counts[c]++;
+    }
+    // create priority queue
+    PQ *pq = createQueue(cmp);
+
+    // if counts[i] is not 0, make a new node without parent and children
+    // and add to our priority queue
+
+    for (i = 0; i < 256; i++)
+    {
+        if (counts[i] != 0)
+        {
+            nodes[i] = mknode(counts[i], NULL, NULL);
+            addEntry(pq, nodes[i]);
+        }
+    }
+    // make one more node with 0 occurence for EOF, add to our priority queue
+    nodes[256] = mknode(0, NULL, NULL);
+    addEntry(pq, nodes[256]);
+    while (numEntries(pq) > 1)
+    {
+        // take two nodes out
+        NODE *left = removeEntry(pq);
+        NODE *right = removeEntry(pq);
+        // make a parent node for this two nodes and add it back to priority queue
+        NODE *add = mknode(left->count + right->count, left, right);
+        addEntry(pq, add);
+    }
+
+    for (i = 0; i < 257; i++)
+    {
+        if (nodes[i] != NULL)
+        {
+            if (isprint(i))
+            {
+                printf("'%c'", i);
+            }
+            else
+            {
+                printf("%03o", i);
+            }
+            printf(": %d x %d bits = %d bits\n", counts[i], depth(nodes[i]), counts[i] * depth(nodes[i]));
+        }
+    }
+    pack(argv[1], argv[2], nodes);
+    return 0;
+}
